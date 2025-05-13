@@ -1,89 +1,81 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/12 16:53:02 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/05/13 20:04:25 by kaisuzuk         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "get_next_line.h"
 
 char	*update_lineptr(char *lineptr)
 {
-	char	*t;
+	char	*res;
 
-	t = ft_strchr(lineptr, '\n');
-	if (!t)
+	if (!(ft_strchr(lineptr, '\n')))
 		return (NULL);
-	return (ft_strdup(t + 1));
+	res = ft_strdup(ft_strchr(lineptr, '\n') + 1);
+	if (!res)
+	{
+		free(lineptr);
+		lineptr = NULL;
+		return (NULL);
+	}
+	return (res);
 }
 
-char	*get_oneline(char *lineptr)
+char	*get_one_line(char *lineptr)
 {
-	char	*t;
+	char	*res;
 
-	t = ft_strchr(lineptr, '\n');
-	if (!t)
+	if (!ft_strchr(lineptr, '\n'))
 		return (ft_strdup(lineptr));
-	return (ft_strndup(lineptr, t - lineptr + 1));
+	res = ft_strndup(lineptr, ft_strchr(lineptr, '\n') - lineptr + 1);
+	if (!res)
+	{
+		free(lineptr);
+		lineptr = NULL;
+		return (NULL);
+	}
+	return (res);
 }
 
 char	*read_until_br(int fd, char *lineptr)
 {
 	char	*buf;
-	int		read_len;
+	int		rd;
 	char	*tmp;
 
-	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	buf = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (!buf)
 		return (NULL);
-	while (!ft_strchr(lineptr, '\n'))
+	while (!ft_strchr(lineptr, '\n') && (rd = read(fd, buf, BUFFER_SIZE)) > 0)
 	{
-		read_len = read(fd, buf, BUFFER_SIZE);
-		if (read_len <= 0)
-			break ;
-		buf[read_len] = '\0';
+		buf[rd] = '\0';
 		if (!(tmp = ft_strjoin(lineptr, buf)))
-			break ;
+		{
+			free(lineptr);
+			free(buf);
+			lineptr = NULL;
+			return (NULL);
+		}
 		free(lineptr);
 		lineptr = tmp;
 	}
 	free(buf);
-	if (read_len == -1)
-	{
-		free(lineptr);
-		lineptr = NULL;
-	}
+	if (rd < 0)
+		return (free(lineptr), lineptr = NULL, NULL);
 	return (lineptr);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*lineptr;
-	char		*res;
-	char		*tmp;
+	static char *lineptr;
+	char *res;
+	char *tmp;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!ft_strchr(lineptr, '\n') && !(lineptr = read_until_br(fd, lineptr)))
-		return (NULL);
-	if (*lineptr == '\0')
-	{
-		free(lineptr);
-		lineptr = NULL;
-		return (NULL);
-	}
-	res = get_oneline(lineptr);
+	if (!ft_strchr(lineptr, '\n'))
+		lineptr = read_until_br(fd, lineptr);
+	if (!lineptr || !*lineptr)
+		return (free(lineptr), lineptr = NULL, NULL);
+	if (!(res = get_one_line(lineptr)))
+		return (free(lineptr), lineptr = NULL, NULL);
 	if (!(tmp = update_lineptr(lineptr)))
-	{
-		free(lineptr);
-		lineptr = NULL;
-		return (res);
-	}
+		return (free(lineptr), lineptr = NULL, res);
 	free(lineptr);
 	lineptr = tmp;
 	return (res);

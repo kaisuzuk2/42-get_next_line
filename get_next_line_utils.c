@@ -6,7 +6,7 @@
 /*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 18:18:33 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/05/13 15:43:22 by kaisuzuk         ###   ########.fr       */
+/*   Updated: 2025/05/13 21:54:50 by kaisuzuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	len = 0;
 	if (!s1)
-		s1 = "";
+		s1 = "\0";
 	tmp = s1;
 	while (*tmp++)
 		len++;
