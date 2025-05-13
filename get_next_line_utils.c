@@ -6,7 +6,7 @@
 /*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 18:18:33 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/05/11 22:42:01 by kaisuzuk         ###   ########.fr       */
+/*   Updated: 2025/05/13 15:43:22 by kaisuzuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ char	*ft_strdup(const char *s)
 	char	*p;
 
 	len = 0;
+	if (!s)
+		return (NULL);
 	while (s[len])
 		len++;
 	res = (char *)malloc(sizeof(char) * (len + 1));
@@ -66,24 +68,27 @@ char	*ft_strdup(const char *s)
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t	len1;
-	size_t	len2;
 	char	*res;
 	char	*p;
+	char const *tmp;
+	int len;
 
-	len1 = 0;
-	len2 = 0;
-	while (s1 && s1[len1])
-		len1++;
-	while (s2 && s2[len2])
-		len2++;
-	res = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
-	if (res == NULL)
+	len = 0;
+	if (!s1)
+		s1 = "";
+	tmp = s1;
+	while (*tmp++)
+		len++;
+	tmp = s2;
+	while (*tmp++)
+		len++;
+	res = (char *)malloc(sizeof(char) * (len + 1));
+	if (!res)
 		return (NULL);
 	p = res;
-	while (s1 && *s1)
+	while (*s1)
 		*p++ = *s1++;
-	while (s2 && *s2)
+	while (*s2)
 		*p++ = *s2++;
 	*p = '\0';
 	return (res);
