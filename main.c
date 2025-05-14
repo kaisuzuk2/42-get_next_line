@@ -1,17 +1,32 @@
 #include "get_next_line.h"
 #include <stdio.h>
+#include <limits.h>
+#include <unistd.h>
 
 int main(void)
 {
 	char *str;
-	// while (1)
+	int fd = 0;
+
+	while (1)
+	{
+		str = get_next_line(fd);
+		if (!str)
+			break ;
+		printf("%s", str);
+		free(str);
+	}
+
+	// str = get_next_line(fd);
+	// if (str)
 	// {
-	// 	str = get_next_line(0);
-	// 	if (!str)
-	// 		break;
 	// 	printf("%s", str);
 	// 	free(str);
 	// }
-	str = get_next_line(0);
-	printf("%s", str);
+	// str = get_next_line(fd);
+	// if (str)
+	// {
+	// 	printf("%s", str);
+	// 	free(str);
+	// }
 }

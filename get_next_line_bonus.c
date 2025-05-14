@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/14 19:33:47 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/05/14 19:46:31 by kaisuzuk         ###   ########.fr       */
+/*   Created: 2025/05/14 19:38:06 by kaisuzuk          #+#    #+#             */
+/*   Updated: 2025/05/14 19:44:46 by kaisuzuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,23 +74,23 @@ char	*read_until_br(int fd, char *lineptr)
 
 char	*get_next_line(int fd)
 {
-	static char	*lineptr;
+	static char	*lineptr[OPEN_MAX];
 	char		*res;
 	char		*tmp;
 
 	if (fd < 0 || fd >= OPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!ft_strchr(lineptr, '\n'))
-		lineptr = read_until_br(fd, lineptr);
-	if (!lineptr || !*lineptr)
-		return (free(lineptr), lineptr = NULL, NULL);
-	res = get_one_line(lineptr);
+	if (!ft_strchr(lineptr[fd], '\n'))
+		lineptr[fd] = read_until_br(fd, lineptr[fd]);
+	if (!lineptr[fd] || !*lineptr[fd])
+		return (free(lineptr[fd]), lineptr[fd] = NULL, NULL);
+	res = get_one_line(lineptr[fd]);
 	if (!res)
-		return (free(lineptr), lineptr = NULL, NULL);
-	tmp = update_lineptr(lineptr);
+		return (free(lineptr[fd]), lineptr[fd] = NULL, NULL);
+	tmp = update_lineptr(lineptr[fd]);
 	if (!tmp)
-		return (free(lineptr), lineptr = NULL, res);
-	free(lineptr);
-	lineptr = tmp;
+		return (free(lineptr[fd]), lineptr[fd] = NULL, res);
+	free(lineptr[fd]);
+	lineptr[fd] = tmp;
 	return (res);
 }
