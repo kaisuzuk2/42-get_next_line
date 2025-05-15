@@ -6,7 +6,7 @@
 /*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:39:50 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/05/14 19:47:18 by kaisuzuk         ###   ########.fr       */
+/*   Updated: 2025/05/14 21:35:09 by kaisuzuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stddef.h>
 # include <stdlib.h>
+# include <limits.h>
 # include <unistd.h>
 
 # ifndef BUFFER_SIZE

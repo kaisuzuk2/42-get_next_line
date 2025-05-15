@@ -6,11 +6,21 @@
 /*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 18:18:33 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/05/14 19:47:52 by kaisuzuk         ###   ########.fr       */
+/*   Updated: 2025/05/14 21:14:44 by kaisuzuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	len;
+
+	len = 0;
+	while (s[len])
+		len++;
+	return (len);
+}
 
 char	*ft_strchr(const char *s, int c)
 {
@@ -30,9 +40,7 @@ char	*ft_strndup(const char *s, size_t n)
 	char	*res;
 	char	*p;
 
-	len = 0;
-	while (s[len])
-		len++;
+	len = ft_strlen(s);
 	if (n < len)
 		len = n;
 	res = (char *)malloc(sizeof(char) * (len + 1));
@@ -47,16 +55,12 @@ char	*ft_strndup(const char *s, size_t n)
 
 char	*ft_strdup(const char *s)
 {
-	size_t	len;
 	char	*res;
 	char	*p;
 
-	len = 0;
 	if (!s)
 		return (NULL);
-	while (s[len])
-		len++;
-	res = (char *)malloc(sizeof(char) * (len + 1));
+	res = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
 	if (res == NULL)
 		return (NULL);
 	p = res;
@@ -68,21 +72,14 @@ char	*ft_strdup(const char *s)
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char		*res;
-	char		*p;
-	char const	*tmp;
-	int			len;
+	char	*res;
+	char	*p;
 
-	len = 0;
 	if (!s1)
-		s1 = "\0";
-	tmp = s1;
-	while (*tmp++)
-		len++;
-	tmp = s2;
-	while (*tmp++)
-		len++;
-	res = (char *)malloc(sizeof(char) * (len + 1));
+		s1 = "";
+	if (!s2)
+		s2 = "";
+	res = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!res)
 		return (NULL);
 	p = res;

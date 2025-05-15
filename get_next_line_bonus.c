@@ -6,13 +6,13 @@
 /*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 19:38:06 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/05/14 19:44:46 by kaisuzuk         ###   ########.fr       */
+/*   Updated: 2025/05/14 21:15:44 by kaisuzuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
-char	*update_lineptr(char *lineptr)
+static char	*update_lineptr(char *lineptr)
 {
 	char	*res;
 
@@ -28,7 +28,7 @@ char	*update_lineptr(char *lineptr)
 	return (res);
 }
 
-char	*get_one_line(char *lineptr)
+static char	*get_one_line(char *lineptr)
 {
 	char	*res;
 
@@ -44,7 +44,7 @@ char	*get_one_line(char *lineptr)
 	return (res);
 }
 
-char	*read_until_br(int fd, char *lineptr)
+static char	*read_until_br(int fd, char *lineptr)
 {
 	char	*buf;
 	int		rd;
