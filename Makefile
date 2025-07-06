@@ -6,11 +6,11 @@
 #    By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/06 17:32:28 by kaisuzuk          #+#    #+#              #
-#    Updated: 2025/07/06 17:42:17 by kaisuzuk         ###   ########.fr        #
+#    Updated: 2025/07/06 17:53:32 by kaisuzuk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	get_next_line.a
+NAME	=	libgnl.a
 CC		=	cc -Wall -Werror -Wextra
 
 MAKE	=	make -C
