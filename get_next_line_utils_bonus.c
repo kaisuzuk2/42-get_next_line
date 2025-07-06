@@ -6,13 +6,13 @@
 /*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 18:18:33 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/05/14 21:14:44 by kaisuzuk         ###   ########.fr       */
+/*   Updated: 2025/07/06 17:47:29 by kaisuzuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-size_t	ft_strlen(const char *s)
+size_t	ft_gnl_strlen(const char *s)
 {
 	size_t	len;
 
@@ -22,7 +22,7 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_gnl_strchr(const char *s, int c)
 {
 	if (s == NULL)
 		return (NULL);
@@ -34,13 +34,13 @@ char	*ft_strchr(const char *s, int c)
 		return (NULL);
 }
 
-char	*ft_strndup(const char *s, size_t n)
+char	*ft_gnl_strndup(const char *s, size_t n)
 {
 	size_t	len;
 	char	*res;
 	char	*p;
 
-	len = ft_strlen(s);
+	len = ft_gnl_strlen(s);
 	if (n < len)
 		len = n;
 	res = (char *)malloc(sizeof(char) * (len + 1));
@@ -53,14 +53,14 @@ char	*ft_strndup(const char *s, size_t n)
 	return (res);
 }
 
-char	*ft_strdup(const char *s)
+char	*ft_gnl_strdup(const char *s)
 {
 	char	*res;
 	char	*p;
 
 	if (!s)
 		return (NULL);
-	res = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
+	res = (char *)malloc(sizeof(char) * (ft_gnl_strlen(s) + 1));
 	if (res == NULL)
 		return (NULL);
 	p = res;
@@ -70,7 +70,7 @@ char	*ft_strdup(const char *s)
 	return (res);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_gnl_strjoin(char const *s1, char const *s2)
 {
 	char	*res;
 	char	*p;
@@ -79,7 +79,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		s1 = "";
 	if (!s2)
 		s2 = "";
-	res = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	res = (char *)malloc(sizeof(char) * (ft_gnl_strlen(s1) + ft_gnl_strlen(s2)
+				+ 1));
 	if (!res)
 		return (NULL);
 	p = res;

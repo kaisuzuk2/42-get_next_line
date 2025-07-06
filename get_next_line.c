@@ -6,7 +6,7 @@
 /*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 19:33:47 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/05/14 21:15:23 by kaisuzuk         ###   ########.fr       */
+/*   Updated: 2025/07/06 17:43:09 by kaisuzuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ static char	*update_lineptr(char *lineptr)
 {
 	char	*res;
 
-	if (!(ft_strchr(lineptr, '\n')))
+	if (!(ft_gnl_strchr(lineptr, '\n')))
 		return (NULL);
-	res = ft_strdup(ft_strchr(lineptr, '\n') + 1);
+	res = ft_gnl_strdup(ft_gnl_strchr(lineptr, '\n') + 1);
 	if (!res)
 	{
 		free(lineptr);
@@ -32,9 +32,9 @@ static char	*get_one_line(char *lineptr)
 {
 	char	*res;
 
-	if (!ft_strchr(lineptr, '\n'))
-		return (ft_strdup(lineptr));
-	res = ft_strndup(lineptr, ft_strchr(lineptr, '\n') - lineptr + 1);
+	if (!ft_gnl_strchr(lineptr, '\n'))
+		return (ft_gnl_strdup(lineptr));
+	res = ft_gnl_strndup(lineptr, ft_gnl_strchr(lineptr, '\n') - lineptr + 1);
 	if (!res)
 	{
 		free(lineptr);
@@ -54,13 +54,13 @@ static char	*read_until_br(int fd, char *lineptr)
 	if (!buf)
 		return (NULL);
 	rd = 1;
-	while (!ft_strchr(lineptr, '\n') && rd)
+	while (!ft_gnl_strchr(lineptr, '\n') && rd)
 	{
 		rd = read(fd, buf, BUFFER_SIZE);
 		if (rd <= 0)
 			break ;
 		buf[rd] = '\0';
-		tmp = ft_strjoin(lineptr, buf);
+		tmp = ft_gnl_strjoin(lineptr, buf);
 		if (!tmp)
 			return (free(lineptr), free(buf), lineptr = NULL, NULL);
 		free(lineptr);
@@ -80,7 +80,7 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || fd >= OPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!ft_strchr(lineptr, '\n'))
+	if (!ft_gnl_strchr(lineptr, '\n'))
 		lineptr = read_until_br(fd, lineptr);
 	if (!lineptr || !*lineptr)
 		return (free(lineptr), lineptr = NULL, NULL);
