@@ -6,7 +6,7 @@
 /*   By: kaisuzuk <kaisuzuk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 19:33:47 by kaisuzuk          #+#    #+#             */
-/*   Updated: 2025/07/06 17:43:09 by kaisuzuk         ###   ########.fr       */
+/*   Updated: 2025/07/22 23:07:56 by kaisuzuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,10 @@ char	*get_next_line(int fd)
 		return (free(lineptr), lineptr = NULL, res);
 	free(lineptr);
 	lineptr = tmp;
+	if (!lineptr || !*lineptr)
+	{
+		free(lineptr);
+		lineptr = NULL;
+	}
 	return (res);
 }
